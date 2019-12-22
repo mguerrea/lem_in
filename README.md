@@ -7,18 +7,18 @@ Structure
 =========
 + neighbour - struct
     + id - int
-    + next - ptr
+    + nxt - ptr
 
 + room - struct
     + name - str
-    + ant_id - int
-    + distance_to_end - int
-    + neighbours_ids - chained list of neighbour (NULL terminated)
+    + ant - int
+    + dist - int
+    + nhgbs - chained list of neighbour (NULL terminated)
 
 + lem_in - struct
-    + number_of_ants - int
-    + start_id - int
-    + end_id - int
+    + ant_nbr - int
+    + strt - int
+    + end - int
     + rooms - struct of room (NULL terminated)
 
 Authors
