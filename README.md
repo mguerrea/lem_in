@@ -5,7 +5,7 @@ This is a repository for our work on the lem_in project of the 42 school
 
 Structure
 =========
-+ neighbour - struct
++ node - struct
     + id   - int
     + nxt  - ptr
 
@@ -15,7 +15,7 @@ Structure
     + y    - int
     + ant  - int
     + dist - int
-    + adjs - chained list of neighbour (NULL terminated)
+    + adjs - chained list of nodes (NULL terminated)
 
 + lem_in - struct
     + ant_nbr - int
