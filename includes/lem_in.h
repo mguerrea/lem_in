@@ -6,18 +6,22 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 11:30:37 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/12/23 11:35:20 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/12/23 13:41:15 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
-typedef struct s_list
+# include "libft.h"
+#include <stdio.h>
+
+
+typedef struct s_node
 {
 	int id;
-	t_list *nxt;
-}				t_list;
+	struct s_node *nxt;
+}				t_node;
 
 typedef struct s_room
 {
@@ -26,7 +30,7 @@ typedef struct s_room
 	int y;
 	int ant;
 	int dist;
-	t_list *adjs;
+	t_node *adjs;
 }				t_room;
 
 typedef struct s_lem_in
@@ -36,5 +40,10 @@ typedef struct s_lem_in
 	int end;
 	t_room *rooms;
 }				t_lem_in;
+
+void add_node(t_node **list, int id);
+void bfs(t_lem_in lem_in);
+void send_ants(t_lem_in lem_in);
+void show_nodes(t_node *list);
 
 # endif
