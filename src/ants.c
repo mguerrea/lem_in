@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 12:58:50 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/12/23 15:20:44 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/12/23 15:51:17 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ void send_ants(t_lem_in lem_in)
 		i = -1;
 		while (++i < lem_in.ant_nbr)
 		{
+			if (ants[i] == lem_in.end)
+				continue;
 			if (i < lem_in.ant_nbr - 1 && manage_priority(i, ants, lem_in) == 0)
 			{
 				move_one_ant(i + 1, ants, lem_in);
