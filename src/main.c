@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 11:38:34 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/12/23 13:48:31 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/12/23 14:09:28 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int main()
 	add_node(&(lem_in.rooms[1].adjs), 0);
 	add_node(&(lem_in.rooms[1].adjs), 3);
 	add_node(&(lem_in.rooms[2].adjs), 0);
-	add_node(&(lem_in.rooms[2].adjs), 3);
 	add_node(&(lem_in.rooms[2].adjs), 4);
+	add_node(&(lem_in.rooms[2].adjs), 3);
 	add_node(&(lem_in.rooms[3].adjs), 1);
 	add_node(&(lem_in.rooms[3].adjs), 2);
 	add_node(&(lem_in.rooms[3].adjs), 5);
