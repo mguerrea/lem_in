@@ -6,40 +6,11 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 12:30:13 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/12/23 13:47:15 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/01/23 16:50:24 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-void add_node_end(t_node **list, int id)
-{
-	t_node *new;
-	t_node *tmp;
-
-	new = malloc(sizeof(t_node));
-	new->nxt = NULL;
-	new->id = id;
-	tmp = *list;
-	if (*list == NULL)
-		*list = new;
-	else
-	{
-		while (tmp->nxt)
-		 	tmp = tmp->nxt;
-		tmp->nxt = new;
-	}
-	
-}
-
-void del_first(t_node **queue)
-{
-	t_node *tmp;
-
-	tmp = (*queue)->nxt;
-	free(*queue);
-	*queue = tmp;
-}
 
 void bfs(t_lem_in lem_in)
 {

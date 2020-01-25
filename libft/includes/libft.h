@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 17:16:00 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/09/30 12:32:26 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/01/23 17:11:43 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,6 @@ void				ft_lstaddback(t_list **list, t_list *new);
 void				ft_elemdel(void *content, size_t content_size);
 int					ft_count_elem(t_list **list);
 t_list				*ft_lstlast(t_list *list);
+void				free_tab(char **array);
 
 #endif

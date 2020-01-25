@@ -5,12 +5,22 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/23 12:58:50 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/12/23 15:51:17 by mguerrea         ###   ########.fr       */
+/*   Created: 2020/01/25 14:04:09 by mguerrea          #+#    #+#             */
+/*   Updated: 2020/01/25 16:36:47 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+static int tab_len(int *tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i] != -1)
+		i++;
+	return (i);
+}
 
 void print_ant(int ant, char *room)
 {
@@ -21,78 +31,47 @@ void print_ant(int ant, char *room)
 	ft_putstr(" ");
 }
 
-int manage_priority(int i, int *ants, t_lem_in lem_in)
+void send_ants(t_lem_in *lem_in, int **paths)
 {
-	int poss_1;
-	int poss_2;
-	t_node *nodes;
-
-	poss_1 = 0;
-	poss_2 = 0;
-	nodes = lem_in.rooms[ants[i]].adjs;
-	while (nodes)
-	{
-		if ((lem_in.rooms[nodes->id].ant == 0 || nodes->id == lem_in.end) &&
-					lem_in.rooms[nodes->id].dist <= lem_in.rooms[ants[i]].dist)
-			poss_1++;
-		nodes = nodes->nxt;
-	}
-	nodes = lem_in.rooms[ants[i + 1]].adjs;
-	while (nodes)
-	{
-		if ((lem_in.rooms[nodes->id].ant == 0 || nodes->id == lem_in.end) &&
-					lem_in.rooms[nodes->id].dist <= lem_in.rooms[ants[i + 1]].dist)
-			poss_2++;
-		nodes = nodes->nxt;
-	}
-	return (poss_2 < poss_1) ? 0 : 1;
-}
-
-void move_one_ant(int i, int *ants, t_lem_in lem_in)
-{
-	t_node *nodes;
-
-	nodes = lem_in.rooms[ants[i]].adjs;
-			while (nodes)
-			{
-				if ((lem_in.rooms[nodes->id].ant == 0 || nodes->id == lem_in.end) &&
-					lem_in.rooms[nodes->id].dist <= lem_in.rooms[ants[i]].dist)
-				{
-					lem_in.rooms[ants[i]].ant--;
-					lem_in.rooms[nodes->id].ant++;
-					ants[i] = nodes->id;
-					print_ant(i + 1, lem_in.rooms[nodes->id].name);
-					break;
-				}
-				nodes = nodes->nxt;
-			}
-}
-
-void send_ants(t_lem_in lem_in)
-{
-	int *ants;
 	int i;
+	int j;
+	int next_ant;
+	int total;
+	int ant;
 
-	ants = malloc(sizeof(int) * lem_in.ant_nbr);
-	i = -1;
-	while (++i < lem_in.ant_nbr)
-		ants[i] = lem_in.start;
-	while (lem_in.rooms[lem_in.end].ant < lem_in.ant_nbr)
+	total = 0;
+	next_ant = 1;
+	while (total != lem_in->ant_nbr)
 	{
-		i = -1;
-		while (++i < lem_in.ant_nbr)
+		i = 0;
+	while(paths[i] != NULL)
+	{
+		j = tab_len(paths[i]) - 2;
+		while (j >= 0)
 		{
-			if (ants[i] == lem_in.end)
-				continue;
-			if (i < lem_in.ant_nbr - 1 && manage_priority(i, ants, lem_in) == 0)
+			if ((paths[i][j + 1] == lem_in->end 
+			|| lem_in->rooms[paths[i][j + 1]].ant == 0)
+			&& (lem_in->rooms[paths[i][j]].ant != 0 
+			|| (paths[i][j] == lem_in->start && next_ant <= lem_in->ant_nbr)))
 			{
-				move_one_ant(i + 1, ants, lem_in);
-				move_one_ant(i, ants, lem_in);
-				i++;
+				if (paths[i][j] != lem_in->start)
+					ant = lem_in->rooms[paths[i][j]].ant;
+				else
+				{
+					ant = next_ant;
+					next_ant++;
+				}
+				print_ant(ant, lem_in->rooms[paths[i][j + 1]].name);
+				lem_in->rooms[paths[i][j + 1]].ant = ant;
+				lem_in->rooms[paths[i][j]].ant = 0;
+				if (paths[i][j + 1] == lem_in->end)
+					total++;
+				
 			}
-			else
-				move_one_ant(i, ants, lem_in);
+			j--;
 		}
-		printf("\n");
+		i++;
+	}
+	ft_putchar('\n');
 	}
 }
