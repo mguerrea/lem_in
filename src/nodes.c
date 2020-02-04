@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 16:50:00 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/01/23 18:54:47 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/04 13:28:11 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,17 @@ t_node *last_node(t_node *list)
 	while (tmp->nxt)
 		tmp = tmp->nxt;
 	return (tmp);
+}
+
+int nodes_len(t_node *list)
+{
+	int i;
+
+	i = 0;
+	while (list)
+	{
+		list = list->nxt;
+		i++;
+	}
+	return (i);
 }

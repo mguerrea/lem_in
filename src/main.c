@@ -6,21 +6,11 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 14:12:07 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/01/25 17:01:56 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/04 13:51:34 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "lem_in.h"
-
-static int tab_len(int *tab)
-{
-	int i;
-
-	i = 0;
-	while (tab[i] != -1)
-		i++;
-	return (i);
-}
 
 void show_nodes(t_node *list, t_lem_in lem_in)
 {
@@ -90,16 +80,23 @@ int main()
 	t = clock() - t; 
 	time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds 
 	dprintf(2, "time taken by bfs = %f\n", time_taken);
-//	dprintf(2, "distance = %d\n", lem_in.rooms[lem_in.start].dist);
+
 	t = clock(); 
-	paths = find_paths(30, 1000, lem_in);
+	paths = find_paths(lem_in.rooms[lem_in.start].dist * 3, 50, lem_in);
 	t = clock() - t; 
 	time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds 
 	dprintf(2, "time taken by dfs = %f\n", time_taken);	
-	paths = keep_best_paths(paths, 10);
-//	print_tab(paths);
-	if (tab_len(paths[0]) > 2 * lem_in.rooms[lem_in.start].dist)
-		send_ants_alt(lem_in);
-	else
+	paths = keep_best_paths(paths, 10, lem_in);
+	print_tab(paths);
+	dprintf(2, "distance = %d\tnb ants = %d\tnb path = %d\n", lem_in.rooms[lem_in.start].dist, lem_in.ant_nbr, number_of_paths(paths));
+	dprintf(2, "max dist = %d\n", tab_len(paths[number_of_paths(paths) - 3]));
+	dprintf(2, "max dist = %d\n", tab_len(paths[number_of_paths(paths) - 1]));
+	int dist_max = tab_len(paths[number_of_paths(paths) - 1]) - 1;
+	int number_of_lines = lem_in.ant_nbr / number_of_paths(paths) + dist_max;
+	dprintf(2, "number of lines = %d\n", number_of_lines);
+//	if (tab_len(paths[0]) > 2 * lem_in.rooms[lem_in.start].dist)
+//		send_ants_alt(lem_in);
+//	else
 		send_ants(&lem_in, paths);
+//	dprintf(2, "number of lines = %d\n", number_of_lines);
 }

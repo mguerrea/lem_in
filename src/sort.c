@@ -6,21 +6,11 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 16:09:38 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/01/25 16:46:44 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/04 13:26:26 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "lem_in.h"
-
-static int tab_len(int *tab)
-{
-	int i;
-
-	i = 0;
-	while (tab[i] != -1)
-		i++;
-	return (i);
-}
 
 void swap(int **a, int **b) 
 { 

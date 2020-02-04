@@ -6,28 +6,18 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 20:53:17 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/01/25 17:01:44 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/04 13:29:21 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "lem_in.h"
 
-static int tab_len2(int *tab)
-{
-	int i;
-
-	i = 0;
-	while (tab[i] != -1)
-		i++;
-	return (i);
-}
-
-void reset(int *path, int depth)
+void reset(int *path)
 {
 	int i;
 
 	i = -1;
-	while (++i < depth)
+	while (path[++i] != -1)
 		path[i] = -1;
 }
 
@@ -55,35 +45,6 @@ void add_to_path(int *path, int current)
 	path[i] = current;
 }
 
-static int tab_len(int **path_found)
-{
-	int i;
-
-	i = 0;
-	while (path_found[i] != NULL)
-		i++;
-	return (i);
-}
-
-void add_entry(int **path_found, int *path, int max_depth, t_lem_in lem_in)
-{
-	int i;
-	(void)max_depth;
-
-	i = 0;
-	while (path_found[i] != NULL)
-		i++;
-	path_found[i] = malloc(sizeof(int) * lem_in.rooms[lem_in.start].dist * 5);
-	int j = 0;
-	while (path[j] != -1)
-	{
-		path_found[i][j] = path[j];
-		j++;
-	}
-	path_found[i][j] = -1;
-	path_found[i + 1] = NULL;
-}
-
 void reset_last(int *path, int jpp)
 {
 	int i;
@@ -101,18 +62,18 @@ void find_recursive(t_lem_in lem_in, int current, int current_depth, int max_dep
 	t_node *tmp;
 
 	if (is_in_tab(path, current) || current_depth > max_depth 
-	|| tab_len2(path) >= lem_in.rooms[lem_in.start].dist * 5 - 1)
+	|| tab_len(path) >= lem_in.rooms[lem_in.start].dist * 5 - 1)
 		return ;
 	else
 		add_to_path(path, current);
 	if (current == lem_in.end)
 	{
-		if (tab_len(path_found) < number)
+		if (number_of_paths(path_found) < number)
 			add_entry(path_found, path, max_depth, lem_in);
 		reset_last(path, max_depth);
 		return ;
 	}
-	else if (tab_len(path_found) < number)
+	else if (number_of_paths(path_found) < number)
 	{
 		tmp = lem_in.rooms[current].adjs;
 		while (tmp)
@@ -130,13 +91,29 @@ int **find_paths(int depth, int number, t_lem_in lem_in)
 	int **paths_found;
 	int *path;
 	int i;
+	t_node *tmp;
+	int new_number;
 
-	paths_found = malloc(sizeof(int *) * number + 1);
+	tmp = lem_in.rooms[lem_in.start].adjs;
+	paths_found = malloc(sizeof(int *) * (number * nodes_len(tmp) + 1));
 	paths_found[0] = NULL;
 	path = malloc(sizeof(int) * lem_in.rooms[lem_in.start].dist * 5);
 	i = -1;
 	while (++i < lem_in.rooms[lem_in.start].dist * 5)
 		path[i] = -1;
-	find_recursive(lem_in, lem_in.start, 0, depth, number, path, paths_found);
+	show_nodes(lem_in.rooms[lem_in.start].adjs, lem_in);
+	new_number = number;
+	while (tmp)
+	{
+		path[0] = lem_in.start;
+		find_recursive(lem_in, tmp->id, 0, depth, new_number, path, paths_found);
+		tmp = tmp->nxt;
+		new_number += number;
+		reset(path);
+	}
+//	find_recursive(lem_in, lem_in.start, 0, depth, number, path, paths_found);
+	free(path);
+	print_tab(paths_found);
+	dprintf(2, "********************\n");
 	return (paths_found);
 }

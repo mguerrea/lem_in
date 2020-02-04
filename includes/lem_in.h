@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 11:30:37 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/01/25 16:27:35 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/04 13:28:54 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,20 @@ typedef struct s_lem_in
 	t_room *rooms;
 }				t_lem_in;
 
-void add_node(t_node **list, int id);
-void add_node_end(t_node **list, int id);
-t_node *last_node(t_node *list);
-void del_first(t_node **queue);
 void bfs(t_lem_in lem_in);
 void throw_error(void);
 void print_ant(int ant, char *room);
 void send_ants(t_lem_in *lem_in, int **paths);
+
+/*
+** NODES
+*/
+
+int nodes_len(t_node *list);
+void add_node(t_node **list, int id);
+void add_node_end(t_node **list, int id);
+t_node *last_node(t_node *list);
+void del_first(t_node **queue);
 
 /*
 ** PARSER
@@ -75,7 +81,13 @@ void sort_by_distance(t_lem_in *lem_in);
 
 int **find_paths(int depth, int number, t_lem_in lem_in);
 void sort_paths(int **paths);
-int **keep_best_paths(int **paths, int number);
+int **keep_best_paths(int **paths, int number, t_lem_in lem_in);
 void send_ants_alt(t_lem_in lem_in);
+
+int number_of_paths(int **paths);
+void add_entry(int **path_found, int *path, int max_depth, t_lem_in lem_in);
+int number_of_paths(int **path_found);
+void tab_cpy(int *dest, int *src);
+int tab_len(int *tab);
 
 # endif
