@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 12:05:28 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/04 17:42:43 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/04 18:23:25 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int get_map(t_lem_in *lem_in)
 	lem_in->input = NULL;
 	while (get_next_line(STDIN_FILENO, &line) > 0)
 	{
-		if(!(new = ft_lstnew(ft_strdup(line), ft_strlen(line) + 1)))
+		if(!(new = ft_lstnew(line, ft_strlen(line) + 1)))
 			return (0);
 		ft_lstaddback(&(lem_in->input), new);
 		ft_strdel(&line);

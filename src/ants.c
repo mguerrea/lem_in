@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 14:04:09 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/04 17:02:22 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/04 18:28:53 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,8 @@ void restrict_paths(int **paths)
 	while (paths[i] != NULL)
 	{
 		tab_cpy(paths[i], &(paths[i][1]));
-	//	free(paths[i]);
-	//	paths[i] = NULL;
 		i++;
 	}
-//	dprintf(2, "****************\n");
-//	print_tab(paths);
 }
 
 void send_ants(t_lem_in *lem_in, int **paths)
@@ -70,7 +66,7 @@ void send_ants(t_lem_in *lem_in, int **paths)
 	while (total != lem_in->ant_nbr)
 	{
 		reset_ants(ants, *lem_in);
-		if (next_ant > lem_in->ant_nbr * 0.50 && restricted == 0) //&& next_ant < lem_in->ant_nbr + 10)
+		if (next_ant > lem_in->ant_nbr * 0.50 && restricted == 0)
 		{
 			restrict_paths(paths);
 			restricted = 1;
@@ -110,4 +106,5 @@ void send_ants(t_lem_in *lem_in, int **paths)
 		}
 		ft_putchar('\n');
 	}
+	free(ants);
 }

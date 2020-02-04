@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 14:12:07 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/04 18:04:30 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/04 18:31:17 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,18 @@ int check_infos(t_lem_in lem_in)
 void display_anthill(t_lem_in *lem_in)
 {
 	t_list *tmp;
+	char *content;
 
-	tmp = lem_in->input;
-	while(tmp)
+	while(lem_in->input)
 	{
-		ft_putendl_fd(lem_in->input->content, 1);
-		lem_in->input = lem_in->input->next;
-		ft_strdel((char **)&(tmp->content));
-		free(tmp);
 		tmp = lem_in->input;
+		ft_putendl_fd(lem_in->input->content, 2);
+		lem_in->input = lem_in->input->next;
+		content = (char *)tmp->content;
+		ft_strdel(&content);
+		free(tmp);
 	}
-	ft_putstr_fd("\n", 1);
+	ft_putstr_fd("\n", 2);
 }
 
 int main(void)
@@ -58,8 +59,10 @@ int main(void)
 	if (lem_in.rooms[lem_in.start].dist == -1)
 		throw_error();
 	paths = find_paths(lem_in.rooms[lem_in.start].dist * 3, 30, lem_in);
+
 	paths = keep_best_paths(paths, 10, lem_in);
 
 	display_anthill(&lem_in);
+
 	send_ants(&lem_in, paths);
 }
