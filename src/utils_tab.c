@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 13:21:42 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/04 13:27:00 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/04 18:59:54 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void add_entry(int **path_found, int *path, int max_depth, t_lem_in lem_in)
 	i = 0;
 	while (path_found[i] != NULL)
 		i++;
-	path_found[i] = malloc(sizeof(int) * lem_in.rooms[lem_in.start].dist * 5);
+	path_found[i] = malloc(sizeof(int) * lem_in.rooms[lem_in.start].dist * 3);
 	int j = 0;
 	while (path[j] != -1)
 	{

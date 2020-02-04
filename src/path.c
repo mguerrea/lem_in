@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 14:06:26 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/04 18:27:01 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/04 19:05:32 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ int **maximize_flux(int **paths, t_lem_in lem_in)
 	int number_of_lines;
 
 	number = number_of_paths(paths);
-	new_paths = malloc(sizeof(int *) * number);
+	new_paths = malloc(sizeof(int *) * (number + 1));
 	i = -1;
-	while (++i < number)
+	while (++i < number + 1)
 		new_paths[i] = NULL;
 	i = 1;
 	new_paths[0] = paths[0];
@@ -72,7 +72,6 @@ int **maximize_flux(int **paths, t_lem_in lem_in)
 			number_of_lines = lem_in.ant_nbr / (j + 1) + 1 + dist_max;
 			new_paths[j] = paths[i];
 			j++;
-		//	dprintf(2, "number of lines = %d\n", number_of_lines);
 		}
 		else
 			break;
@@ -97,6 +96,7 @@ int **keep_best_paths(int **paths, int number, t_lem_in lem_in)
 	j = -1;
 	while (++j < number_of_paths(paths))
 		eliminate_duplicate(paths, j);
+	
 	paths = maximize_flux(paths, lem_in);
 	return (paths);
 }
