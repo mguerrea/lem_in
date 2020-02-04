@@ -6,13 +6,13 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 16:09:38 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/04 13:26:26 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/04 17:07:12 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "lem_in.h"
 
-void swap(int **a, int **b) 
+static void swap(int **a, int **b) 
 { 
 	int *t = *a; 
 	*a = *b; 
@@ -37,20 +37,12 @@ static int partition (int **arr, int low, int high)
 	return (i + 1); 
 } 
 
-/* The main function that implements QuickSort 
-arr[] --> Array to be sorted, 
-low --> Starting index, 
-high --> Ending index */
 static void quickSort(int **arr, int low, int high) 
 { 
 	if (low < high) 
 	{ 
-		/* pi is partitioning index, arr[p] is now 
-		at right place */
 		int pi = partition(arr, low, high); 
 
-		// Separately sort elements before 
-		// partition and after partition 
 		quickSort(arr, low, pi - 1); 
 		quickSort(arr, pi + 1, high); 
 	} 
@@ -63,7 +55,6 @@ void sort_paths(int **paths)
 	i = 0;
 	while (paths[i] != NULL)
 		i++;
-	dprintf(2, "i = %d\n", i);
-	quickSort(paths, 0, i -1);
+	quickSort(paths, 0, i - 1);
 }
 

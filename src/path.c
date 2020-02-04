@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 14:06:26 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/04 14:09:46 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/04 17:05:49 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,12 @@ int **maximize_flux(int **paths, t_lem_in lem_in)
 	while (paths[i])
 	{
 		dist_max = tab_len(paths[i]);
-		if (lem_in.ant_nbr / (j + 1) + dist_max <= number_of_lines)
+		if (lem_in.ant_nbr / (j + 1) + 1 + dist_max <= number_of_lines)
 		{
-			number_of_lines = lem_in.ant_nbr / (j + 1) + dist_max;
+			number_of_lines = lem_in.ant_nbr / (j + 1) + 1 + dist_max;
 			new_paths[j] = paths[i];
 			j++;
-			dprintf(2, "number of lines = %d\n", number_of_lines);
+		//	dprintf(2, "number of lines = %d\n", number_of_lines);
 		}
 		else
 			break;
@@ -89,35 +89,19 @@ int **maximize_flux(int **paths, t_lem_in lem_in)
 
 int **keep_best_paths(int **paths, int number, t_lem_in lem_in)
 {
-	int i;
-	int max;
 	(void)number;
 	int j;
 
-	clock_t t = clock();
+//	clock_t t = clock();
 	sort_paths(paths);
-	t = clock() - t; 
-	double time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds 
-	dprintf(2, "time taken by sort = %f\n", time_taken);
-	print_tab(paths);
-	j = 0;
-	while (j < number_of_paths(paths))
-	{
+//	t = clock() - t; 
+//	double time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds 
+//	dprintf(2, "time taken by sort = %f\n", time_taken);
+//	print_tab(paths);
+	j = -1;
+	while (++j < number_of_paths(paths))
 		eliminate_duplicate(paths, j);
-		j++;
-	}
-	dprintf(2, "-------------------------\n");
+//	dprintf(2, "-------------------------\n");
 	paths = maximize_flux(paths, lem_in);
-	max = 2 * tab_len(paths[0]);
-//	max = tab_len(paths[0]) + 15;
-	i = 0;
-	while (paths[i] && tab_len(paths[i]) <= max)
-		i++;
-	while (paths[i] != NULL)
-	{
-		free(paths[i]);
-		paths[i] = NULL;
-		i++;
-	}
 	return (paths);
 }

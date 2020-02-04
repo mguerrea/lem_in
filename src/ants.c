@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 14:04:09 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/04 15:15:10 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/04 17:02:22 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void restrict_paths(int **paths)
 	//	paths[i] = NULL;
 		i++;
 	}
-	dprintf(2, "****************\n");
-	print_tab(paths);
+//	dprintf(2, "****************\n");
+//	print_tab(paths);
 }
 
 void send_ants(t_lem_in *lem_in, int **paths)

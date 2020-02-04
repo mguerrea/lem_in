@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 11:30:37 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/04 13:28:54 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/04 17:17:13 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_lem_in
 	int ant_nbr;
 	int start;
 	int end;
+	t_list *input;
 	t_room *rooms;
 }				t_lem_in;
 

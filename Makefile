@@ -6,14 +6,14 @@
 #    By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/19 14:03:15 by jgourdin          #+#    #+#              #
-#    Updated: 2020/02/04 13:22:31 by mguerrea         ###   ########.fr        #
+#    Updated: 2020/02/04 17:47:59 by mguerrea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem-in
 
 SRC_NAME = main.c bfs.c ants.c error.c parser.c check_map.c manage_map.c \
-	nodes.c dfs.c path.c sort.c alt_ants.c sort_alt.c utils_tab.c
+	nodes.c dfs.c path.c sort.c debug.c utils_tab.c
 
 INC_NAME = lem_in.h
 
