@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 14:12:07 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/04 19:05:56 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/05 16:33:41 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int main(void)
 	
 	if (lem_in.rooms[lem_in.start].dist == -1)
 		throw_error();
-	paths = find_paths(lem_in.rooms[lem_in.start].dist * 3, 30, lem_in);
+	paths = find_paths(lem_in.rooms[lem_in.start].dist * 3, 20, lem_in);
 	paths = keep_best_paths(paths, 10, lem_in);
 	display_anthill(&lem_in);
 	send_ants(&lem_in, paths);

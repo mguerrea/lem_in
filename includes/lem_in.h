@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 11:30:37 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/04 17:17:13 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/05 15:07:15 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,21 @@ void print_tab(int **paths);
 
 void sort_by_distance(t_lem_in *lem_in);
 
+/*
+** PATHS
+*/
+
 int **find_paths(int depth, int number, t_lem_in lem_in);
 void sort_paths(int **paths);
 int **keep_best_paths(int **paths, int number, t_lem_in lem_in);
-void send_ants_alt(t_lem_in lem_in);
+int **maximize_flux(int **paths, t_lem_in lem_in);
+
+/*
+** UTILS
+*/
 
 int number_of_paths(int **paths);
 void add_entry(int **path_found, int *path, int max_depth, t_lem_in lem_in);
-int number_of_paths(int **path_found);
 void tab_cpy(int *dest, int *src);
 int tab_len(int *tab);
 
