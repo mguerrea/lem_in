@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 14:12:07 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/08 14:17:42 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/08 14:24:51 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int		main(void)
 	if (lem_in.rooms[lem_in.start].dist == -1)
 		throw_error();
 	paths = find_paths(lem_in.rooms[lem_in.start].dist * 3, 20, lem_in);
-	dprintf(2, "jpp\n");
 	paths = keep_best_paths(paths, lem_in);
 	display_anthill(&lem_in);
 	send_ants(&lem_in, paths);
