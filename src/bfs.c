@@ -6,27 +6,32 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 12:30:13 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/01/23 16:50:24 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/08 14:17:10 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void bfs(t_lem_in lem_in)
+void	init_bfs(t_node **queue, t_node **nodes, t_lem_in *lem_in)
 {
-	t_node *queue;
-	t_node *nodes;
-	int current;
+	lem_in->rooms[lem_in->end].dist = 0;
+	while (*nodes)
+	{
+		lem_in->rooms[(*nodes)->id].dist = 1;
+		add_node_end(queue, (*nodes)->id);
+		*nodes = (*nodes)->nxt;
+	}
+}
+
+void	bfs(t_lem_in lem_in)
+{
+	t_node	*queue;
+	t_node	*nodes;
+	int		current;
 
 	queue = NULL;
-	lem_in.rooms[lem_in.end].dist = 0;
 	nodes = lem_in.rooms[lem_in.end].adjs;
-	while (nodes)
-	{
-		lem_in.rooms[nodes->id].dist = 1;
-		add_node_end(&queue, nodes->id);
-		nodes = nodes->nxt;
-	}
+	init_bfs(&queue, &nodes, &lem_in);
 	current = 1;
 	while (queue)
 	{

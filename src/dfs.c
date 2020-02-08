@@ -6,110 +6,64 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 20:53:17 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/04 19:06:12 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/08 14:16:39 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "lem_in.h"
+#include "lem_in.h"
 
-void reset(int *path)
-{
-	int i;
-
-	i = -1;
-	while (path[++i] != -1)
-		path[i] = -1;
-}
-
-int is_in_tab(int *path, int current)
-{
-	int i;
-
-	i = 0;
-	while (path[i] != -1)
-	{
-		if (path[i] == current)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-void add_to_path(int *path, int current)
-{
-	int i;
-
-	i = 0;
-	while (path[i] != -1)
-		i++;
-	path[i] = current;
-}
-
-void reset_last(int *path, int jpp)
-{
-	int i;
-	(void)jpp;
-
-	i = 0;
-	while (path[i] != -1)
-		i++;
-	path[i - 1] = -1;
-}
-
-void find_recursive(t_lem_in lem_in, int current, int current_depth, int max_depth,
-	int number, int *path, int **path_found)
+void	find_recursive(t_lem_in lem_in, int current, t_dfs *dfs, int depth)
 {
 	t_node *tmp;
 
-	if (is_in_tab(path, current) || current_depth > max_depth 
-	|| tab_len(path) >= lem_in.rooms[lem_in.start].dist * 3 - 1)
+	if (is_in_tab(dfs->path, current) || depth > dfs->max_depth
+	|| tab_len(dfs->path) >= lem_in.rooms[lem_in.start].dist * 3 - 1)
 		return ;
 	else
-		add_to_path(path, current);
+		add_to_path(dfs->path, current);
 	if (current == lem_in.end)
 	{
-		if (number_of_paths(path_found) < number)
-			add_entry(path_found, path, max_depth, lem_in);
-		reset_last(path, max_depth);
+		if (number_of_paths(dfs->paths_found) < dfs->number)
+			add_entry(dfs->paths_found, dfs->path, lem_in);
+		reset_last(dfs->path);
 		return ;
 	}
-	else if (number_of_paths(path_found) < number)
+	else if (number_of_paths(dfs->paths_found) < dfs->number)
 	{
 		tmp = lem_in.rooms[current].adjs;
 		while (tmp)
 		{
-			find_recursive(lem_in, tmp->id, current_depth + 1, max_depth, number, path, path_found);
+			find_recursive(lem_in, tmp->id, dfs, depth + 1);
 			tmp = tmp->nxt;
 		}
 	}
-	reset_last(path, max_depth);
+	reset_last(dfs->path);
 	return ;
 }
 
-int **find_paths(int depth, int number, t_lem_in lem_in)
+int		**find_paths(int depth, int number, t_lem_in lem_in)
 {
-	int **paths_found;
-	int *path;
-	int i;
-	t_node *tmp;
-	int new_number;
+	int		i;
+	t_node	*tmp;
+	t_dfs	dfs;
 
 	tmp = lem_in.rooms[lem_in.start].adjs;
-	paths_found = malloc(sizeof(int *) * (number * nodes_len(tmp) + 1));
-	paths_found[0] = NULL;
-	path = malloc(sizeof(int) * lem_in.rooms[lem_in.start].dist * 3);
+	dfs.paths_found = malloc(sizeof(int *) * (number * nodes_len(tmp) + 1));
+	dfs.paths_found[0] = NULL;
+	dfs.path = malloc(sizeof(int) * lem_in.rooms[lem_in.start].dist * 3);
 	i = -1;
 	while (++i < lem_in.rooms[lem_in.start].dist * 3)
-		path[i] = -1;
-	new_number = number;
+		dfs.path[i] = -1;
+	dfs.number = number;
+	dfs.max_depth = depth;
 	while (tmp)
 	{
-		path[0] = lem_in.start;
-		find_recursive(lem_in, tmp->id, 0, depth, new_number, path, paths_found);
+		dfs.path[0] = lem_in.start;
+		find_recursive(lem_in, tmp->id, &dfs, 0);
 		tmp = tmp->nxt;
-		new_number += number;
-		reset(path);
+		dfs.number += number;
+		reset(dfs.path);
 	}
-	free(path);
-	return (paths_found);
+	free(dfs.path);
+	return (dfs.paths_found);
 }

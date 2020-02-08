@@ -6,13 +6,13 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 12:36:03 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/01/23 17:23:27 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/08 13:13:40 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "lem_in.h"
+#include "lem_in.h"
 
-int is_comment(char *line)
+int		is_comment(char *line)
 {
 	if (line[0] != '#')
 		return (0);
@@ -21,9 +21,8 @@ int is_comment(char *line)
 	return (1);
 }
 
-int is_command(char *line)
+int		is_command(char *line)
 {
-
 	if (ft_strncmp(line, "##", 2) != 0)
 		return (0);
 	if (line[2] && line[2] == '#')
@@ -31,7 +30,7 @@ int is_command(char *line)
 	return (1);
 }
 
-int is_room(char *line)
+int		is_room(char *line)
 {
 	int i;
 
@@ -57,7 +56,7 @@ int is_room(char *line)
 	return (1);
 }
 
-int is_link(char *line)
+int		is_link(char *line)
 {
 	int i;
 

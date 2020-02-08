@@ -6,13 +6,13 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 15:46:21 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/01/25 16:36:17 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/08 13:47:04 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "lem_in.h"
+#include "lem_in.h"
 
-void manage_command(char *line, t_lem_in *lem_in)
+void	manage_command(char *line, t_lem_in *lem_in)
 {
 	int i;
 
@@ -25,7 +25,7 @@ void manage_command(char *line, t_lem_in *lem_in)
 		lem_in->end = i;
 }
 
-void manage_room(char *line, t_lem_in *lem_in)
+void	manage_room(char *line, t_lem_in *lem_in)
 {
 	int i;
 	int len;
@@ -33,23 +33,23 @@ void manage_room(char *line, t_lem_in *lem_in)
 	i = 0;
 	while (lem_in->rooms[i].name != NULL)
 		i++;
-	if(!(lem_in->rooms = ft_realloc(lem_in->rooms, sizeof(t_room) * (i + 1), sizeof(t_room) * (i + 2))))
+	if (!(lem_in->rooms = ft_realloc(lem_in->rooms, sizeof(t_room) * (i + 1),
+		sizeof(t_room) * (i + 2))))
 		throw_error();
 	len = ft_strchr(line, ' ') - line;
 	lem_in->rooms[i].name = ft_strsub(line, 0, len);
-//	dprintf(2, "room = %s\n", lem_in->rooms[i].name);
 	lem_in->rooms[i + 1].name = NULL;
 	lem_in->rooms[i].dist = -1;
 	lem_in->rooms[i].ant = 0;
 	lem_in->rooms[i].adjs = NULL;
 }
 
-int manage_link(char *line, t_lem_in *lem_in)
+int		manage_link(char *line, t_lem_in *lem_in)
 {
-	char **rooms;
-	int id_0;
-	int id_1;
-	int i;
+	char	**rooms;
+	int		id_0;
+	int		id_1;
+	int		i;
 
 	rooms = ft_strsplit(line, '-');
 	id_0 = -1;

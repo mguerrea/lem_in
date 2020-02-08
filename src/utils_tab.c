@@ -6,22 +6,22 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 13:21:42 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/04 18:59:54 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/08 14:17:31 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void add_entry(int **path_found, int *path, int max_depth, t_lem_in lem_in)
+void	add_entry(int **path_found, int *path, t_lem_in lem_in)
 {
-	int i;
-	(void)max_depth;
+	int		i;
+	int		j;
 
 	i = 0;
 	while (path_found[i] != NULL)
 		i++;
 	path_found[i] = malloc(sizeof(int) * lem_in.rooms[lem_in.start].dist * 3);
-	int j = 0;
+	j = 0;
 	while (path[j] != -1)
 	{
 		path_found[i][j] = path[j];
@@ -31,7 +31,7 @@ void add_entry(int **path_found, int *path, int max_depth, t_lem_in lem_in)
 	path_found[i + 1] = NULL;
 }
 
-int number_of_paths(int **path_found)
+int		number_of_paths(int **path_found)
 {
 	int i;
 
@@ -41,7 +41,7 @@ int number_of_paths(int **path_found)
 	return (i);
 }
 
-int tab_len(int *tab)
+int		tab_len(int *tab)
 {
 	int i;
 
@@ -51,7 +51,7 @@ int tab_len(int *tab)
 	return (i);
 }
 
-void tab_cpy(int *dest, int *src)
+void	tab_cpy(int *dest, int *src)
 {
 	int i;
 

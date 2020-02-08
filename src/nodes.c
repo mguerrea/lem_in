@@ -6,13 +6,13 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 16:50:00 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/04 13:28:11 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/08 13:48:12 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "lem_in.h"
+#include "lem_in.h"
 
-void add_node(t_node **list, int id)
+void	add_node(t_node **list, int id)
 {
 	t_node *tmp;
 
@@ -22,7 +22,7 @@ void add_node(t_node **list, int id)
 	*list = tmp;
 }
 
-void add_node_end(t_node **list, int id)
+void	add_node_end(t_node **list, int id)
 {
 	t_node *new;
 	t_node *tmp;
@@ -36,13 +36,12 @@ void add_node_end(t_node **list, int id)
 	else
 	{
 		while (tmp->nxt)
-		 	tmp = tmp->nxt;
+			tmp = tmp->nxt;
 		tmp->nxt = new;
 	}
-	
 }
 
-void del_first(t_node **queue)
+void	del_first(t_node **queue)
 {
 	t_node *tmp;
 
@@ -51,7 +50,7 @@ void del_first(t_node **queue)
 	*queue = tmp;
 }
 
-t_node *last_node(t_node *list)
+t_node	*last_node(t_node *list)
 {
 	t_node *tmp;
 
@@ -61,7 +60,7 @@ t_node *last_node(t_node *list)
 	return (tmp);
 }
 
-int nodes_len(t_node *list)
+int		nodes_len(t_node *list)
 {
 	int i;
 
