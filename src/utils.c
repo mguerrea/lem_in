@@ -1,44 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_tab.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/04 13:21:42 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/08 14:17:31 by mguerrea         ###   ########.fr       */
+/*   Created: 2020/02/08 12:32:48 by mguerrea          #+#    #+#             */
+/*   Updated: 2020/02/13 19:50:16 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	add_entry(int **path_found, int *path, t_lem_in lem_in)
+void	display_anthill(t_lem_in *lem_in)
 {
-	int		i;
-	int		j;
+	t_list	*tmp;
+	char	*content;
 
-	i = 0;
-	while (path_found[i] != NULL)
-		i++;
-	path_found[i] = malloc(sizeof(int) * lem_in.rooms[lem_in.start].dist * 3);
-	j = 0;
-	while (path[j] != -1)
+	while (lem_in->input)
 	{
-		path_found[i][j] = path[j];
-		j++;
+		tmp = lem_in->input;
+		ft_putendl_fd(lem_in->input->content, 2);
+		lem_in->input = lem_in->input->next;
+		content = (char *)tmp->content;
+		ft_strdel(&content);
+		free(tmp);
 	}
-	path_found[i][j] = -1;
-	path_found[i + 1] = NULL;
+	ft_putstr_fd("\n", 2);
 }
 
-int		number_of_paths(int **path_found)
+void	print_ant(int ant, char *room)
 {
-	int i;
-
-	i = 0;
-	while (path_found[i] != NULL)
-		i++;
-	return (i);
+	ft_putstr("L");
+	ft_putnbr(ant);
+	ft_putstr("-");
+	ft_putstr(room);
+	ft_putstr(" ");
 }
 
 int		tab_len(int *tab)

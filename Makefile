@@ -6,14 +6,14 @@
 #    By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/19 14:03:15 by jgourdin          #+#    #+#              #
-#    Updated: 2020/02/08 14:15:25 by mguerrea         ###   ########.fr        #
+#    Updated: 2020/02/13 19:51:03 by mguerrea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem-in
 
 SRC_NAME = main.c bfs.c ants.c error.c parser.c check_map.c manage_map.c \
-	nodes.c dfs.c path.c sort.c utils_tab.c print.c dfs_utils.c
+	nodes.c path.c utils.c
 
 INC_NAME = lem_in.h
 
@@ -27,7 +27,7 @@ LIBS = -lft -lncurses
 
 CC = clang
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -O3
 
 SRC_PATH = src
 

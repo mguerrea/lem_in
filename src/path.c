@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 14:06:26 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/08 14:17:57 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/13 19:46:09 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,17 @@
 void	actualize_paths(int **paths, t_lem_in lem_in, int next_ant)
 {
 	int i;
-	int dist_max;
-	int number_of_lines;
+	int lines;
 	int res;
 
 	i = 1;
-	dist_max = tab_len(paths[0]);
-	number_of_lines = lem_in.ant_nbr - next_ant + dist_max;
+	lines = lem_in.ant_nbr - next_ant + tab_len(paths[0]);
 	while (paths[i])
 	{
-		dist_max = tab_len(paths[i]);
-		res = (lem_in.ant_nbr - next_ant) / (i + 1) + dist_max;
-		if (res <= number_of_lines + 1)
-			number_of_lines = res;
+		res = (lem_in.ant_nbr - next_ant) / (i + 1) + tab_len(paths[i]);
+	//	res += ((lem_in.ant_nbr - next_ant) % (i + 1) != 0);
+		if (res <= lines + 1)
+			lines = res;
 		else
 			break ;
 		i++;
@@ -39,46 +37,20 @@ void	actualize_paths(int **paths, t_lem_in lem_in, int next_ant)
 	}
 }
 
-void	eliminate_duplicate(int **paths, int number)
-{
-	int i;
-	int room;
-	int j;
-
-	i = number + 1;
-	room = paths[number][1];
-	while (paths[i] && paths[i][1] == room)
-		i++;
-	j = number + 1;
-	if (j == i)
-		return ;
-	while (paths[i])
-	{
-		tab_cpy(paths[j], paths[i]);
-		i++;
-		j++;
-	}
-	while (paths[j])
-	{
-		free(paths[j]);
-		paths[j] = NULL;
-		j++;
-	}
-}
-
 int		**maximize_flux(int **paths, t_lem_in lem_in)
 {
 	int i;
-	int dist_max;
-	int number_of_lines;
+	int lines;
+	int res;
 
 	i = 1;
-	number_of_lines = lem_in.ant_nbr + tab_len(paths[0]);
+	lines = lem_in.ant_nbr + tab_len(paths[0]);
 	while (paths[i])
 	{
-		dist_max = tab_len(paths[i]);
-		if (lem_in.ant_nbr / (i + 1) + 1 + dist_max <= number_of_lines)
-			number_of_lines = lem_in.ant_nbr / (i + 1) + 1 + dist_max;
+		res = lem_in.ant_nbr / (i + 1) + tab_len(paths[i]);
+		res += (lem_in.ant_nbr % (i + 1) != 0);
+		if (res <= lines)
+			lines = res;
 		else
 			break ;
 		i++;
@@ -92,14 +64,67 @@ int		**maximize_flux(int **paths, t_lem_in lem_in)
 	return (paths);
 }
 
-int		**keep_best_paths(int **paths, t_lem_in lem_in)
+void reset_dist(t_lem_in lem_in)
 {
-	int j;
+	int i;
 
-	sort_paths(paths);
-	j = -1;
-	while (++j < number_of_paths(paths))
-		eliminate_duplicate(paths, j);
-	paths = maximize_flux(paths, lem_in);
+	i = 0;
+	while (lem_in.rooms[i].name)
+	{
+		if (lem_in.rooms[i].dist != -2)
+			lem_in.rooms[i].dist = -1;
+		i++;
+	}
+}
+
+int *find_shortest(t_lem_in lem_in)
+{
+	t_node *tmp;
+	int *path;
+	int i;
+	int dist;
+
+	tmp = lem_in.rooms[lem_in.start].adjs;
+	if (!(path = malloc(sizeof(int) * (lem_in.rooms[lem_in.start].dist + 2))))
+		return (NULL);
+	i = 1;
+	path[0] = lem_in.start;
+	dist = lem_in.rooms[lem_in.start].dist;
+	while (dist != 0)
+	{
+		while (lem_in.rooms[tmp->id].dist >= dist || lem_in.rooms[tmp->id].dist == -2)
+			tmp = tmp->nxt;
+		path[i] = tmp->id;
+		i++;
+		dist = lem_in.rooms[tmp->id].dist;
+		lem_in.rooms[tmp->id].dist = -2;
+		tmp = lem_in.rooms[tmp->id].adjs;
+	}
+	path[i] = -1;
+	return (path);
+}
+
+int **find_paths(t_lem_in lem_in)
+{
+	int **paths;
+	int *shortest;
+	int max;
+	int i;
+
+	max = nodes_len(lem_in.rooms[lem_in.start].adjs);
+	if (!(paths = malloc(sizeof(int *) * (max + 1))))
+		return (NULL);
+	i = 0;
+	while (i < max)
+	{
+			reset_dist(lem_in);
+	bfs(lem_in);
+	if (lem_in.rooms[lem_in.start].dist == -1)
+		break;
+	shortest = find_shortest(lem_in);
+	paths[i] = shortest;
+	i++;
+	}
+	paths[i] = NULL;
 	return (paths);
 }

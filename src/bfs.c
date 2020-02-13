@@ -5,20 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/23 12:30:13 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/08 14:17:10 by mguerrea         ###   ########.fr       */
+/*   Created: 2020/02/13 18:17:11 by mguerrea          #+#    #+#             */
+/*   Updated: 2020/02/13 19:36:49 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	init_bfs(t_node **queue, t_node **nodes, t_lem_in *lem_in)
+static void	init_bfs(t_node **queue, t_node **nodes, t_lem_in *lem_in)
 {
 	lem_in->rooms[lem_in->end].dist = 0;
 	while (*nodes)
 	{
+		if (lem_in->rooms[(*nodes)->id].dist != -2)
+		{
 		lem_in->rooms[(*nodes)->id].dist = 1;
 		add_node_end(queue, (*nodes)->id);
+		}
 		*nodes = (*nodes)->nxt;
 	}
 }

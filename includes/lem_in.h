@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 11:30:37 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/08 14:21:26 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/13 19:49:45 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "libft.h"
 # include "get_next_line.h"
+#include <stdio.h>
+#include <time.h>
 
 typedef struct	s_node
 {
@@ -85,29 +87,16 @@ void			sort_by_distance(t_lem_in *lem_in);
 ** PATHS
 */
 
-int				**find_paths(int depth, int number, t_lem_in lem_in);
-void			sort_paths(int **paths);
-int				**keep_best_paths(int **paths, t_lem_in lem_in);
 int				**maximize_flux(int **paths, t_lem_in lem_in);
 void			actualize_paths(int **paths, t_lem_in lem_in, int next_ant);
+int				**find_paths(t_lem_in lem_in);
 
 /*
 ** UTILS
 */
 
-int				number_of_paths(int **paths);
-void			add_entry(int **path_found, int *path, t_lem_in lem_in);
 void			tab_cpy(int *dest, int *src);
 int				tab_len(int *tab);
 void			display_anthill(t_lem_in *lem_in);
-
-/*
-** DFS
-*/
-
-void			reset_last(int *path);
-void			add_to_path(int *path, int current);
-int				is_in_tab(int *path, int current);
-void			reset(int *path);
 
 #endif
