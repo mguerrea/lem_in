@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 14:06:26 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/13 19:46:09 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/19 12:48:01 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 void	actualize_paths(int **paths, t_lem_in lem_in, int next_ant)
 {
-	int i;
-	int lines;
-	int res;
+	int	i;
+	int	res;
+	int	lines;
 
 	i = 1;
 	lines = lem_in.ant_nbr - next_ant + tab_len(paths[0]);
 	while (paths[i])
 	{
-		res = (lem_in.ant_nbr - next_ant) / (i + 1) + tab_len(paths[i]);
-	//	res += ((lem_in.ant_nbr - next_ant) % (i + 1) != 0);
+		res = (float)(lem_in.ant_nbr - next_ant) / (i + 1) + tab_len(paths[i]);
 		if (res <= lines + 1)
 			lines = res;
 		else
@@ -40,8 +39,8 @@ void	actualize_paths(int **paths, t_lem_in lem_in, int next_ant)
 int		**maximize_flux(int **paths, t_lem_in lem_in)
 {
 	int i;
-	int lines;
 	int res;
+	int lines;
 
 	i = 1;
 	lines = lem_in.ant_nbr + tab_len(paths[0]);
@@ -64,7 +63,7 @@ int		**maximize_flux(int **paths, t_lem_in lem_in)
 	return (paths);
 }
 
-void reset_dist(t_lem_in lem_in)
+void	reset_dist(t_lem_in lem_in)
 {
 	int i;
 
@@ -77,12 +76,12 @@ void reset_dist(t_lem_in lem_in)
 	}
 }
 
-int *find_shortest(t_lem_in lem_in)
+int		*find_shortest(t_lem_in lem_in)
 {
-	t_node *tmp;
-	int *path;
-	int i;
-	int dist;
+	t_node	*tmp;
+	int		*path;
+	int		i;
+	int		dist;
 
 	tmp = lem_in.rooms[lem_in.start].adjs;
 	if (!(path = malloc(sizeof(int) * (lem_in.rooms[lem_in.start].dist + 2))))
@@ -92,7 +91,8 @@ int *find_shortest(t_lem_in lem_in)
 	dist = lem_in.rooms[lem_in.start].dist;
 	while (dist != 0)
 	{
-		while (lem_in.rooms[tmp->id].dist >= dist || lem_in.rooms[tmp->id].dist == -2)
+		while (lem_in.rooms[tmp->id].dist >= dist
+			|| lem_in.rooms[tmp->id].dist == -2)
 			tmp = tmp->nxt;
 		path[i] = tmp->id;
 		i++;
@@ -104,12 +104,12 @@ int *find_shortest(t_lem_in lem_in)
 	return (path);
 }
 
-int **find_paths(t_lem_in lem_in)
+int		**find_paths(t_lem_in lem_in)
 {
-	int **paths;
-	int *shortest;
-	int max;
-	int i;
+	int	**paths;
+	int	*shortest;
+	int	max;
+	int	i;
 
 	max = nodes_len(lem_in.rooms[lem_in.start].adjs);
 	if (!(paths = malloc(sizeof(int *) * (max + 1))))
@@ -117,13 +117,13 @@ int **find_paths(t_lem_in lem_in)
 	i = 0;
 	while (i < max)
 	{
-			reset_dist(lem_in);
-	bfs(lem_in);
-	if (lem_in.rooms[lem_in.start].dist == -1)
-		break;
-	shortest = find_shortest(lem_in);
-	paths[i] = shortest;
-	i++;
+		reset_dist(lem_in);
+		bfs(lem_in);
+		if (lem_in.rooms[lem_in.start].dist == -1)
+			break ;
+		shortest = find_shortest(lem_in);
+		paths[i] = shortest;
+		i++;
 	}
 	paths[i] = NULL;
 	return (paths);

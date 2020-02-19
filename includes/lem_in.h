@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 11:30:37 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/13 19:49:45 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/19 12:48:44 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # include "libft.h"
 # include "get_next_line.h"
-#include <stdio.h>
-#include <time.h>
 
 typedef struct	s_node
 {
@@ -52,7 +50,6 @@ typedef struct	s_dfs
 }				t_dfs;
 
 void			bfs(t_lem_in lem_in);
-void			throw_error(void);
 void			print_ant(int ant, char *room);
 void			send_ants(t_lem_in *lem_in, int **paths);
 
@@ -81,8 +78,6 @@ void			manage_command(char *line, t_lem_in *lem_in);
 void			manage_room(char *line, t_lem_in *lem_in);
 int				manage_link(char *line, t_lem_in *lem_in);
 
-void			sort_by_distance(t_lem_in *lem_in);
-
 /*
 ** PATHS
 */
@@ -98,5 +93,6 @@ int				**find_paths(t_lem_in lem_in);
 void			tab_cpy(int *dest, int *src);
 int				tab_len(int *tab);
 void			display_anthill(t_lem_in *lem_in);
+void			throw_error(char *str);
 
 #endif

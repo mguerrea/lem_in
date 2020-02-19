@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 18:17:11 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/13 19:36:49 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/19 12:29:35 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ static void	init_bfs(t_node **queue, t_node **nodes, t_lem_in *lem_in)
 	{
 		if (lem_in->rooms[(*nodes)->id].dist != -2)
 		{
-		lem_in->rooms[(*nodes)->id].dist = 1;
-		add_node_end(queue, (*nodes)->id);
+			lem_in->rooms[(*nodes)->id].dist = 1;
+			add_node_end(queue, (*nodes)->id);
 		}
 		*nodes = (*nodes)->nxt;
 	}
 }
 
-void	bfs(t_lem_in lem_in)
+void		bfs(t_lem_in lem_in)
 {
 	t_node	*queue;
 	t_node	*nodes;

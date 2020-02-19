@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 15:46:21 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/08 13:47:04 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/19 12:39:05 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	manage_room(char *line, t_lem_in *lem_in)
 		i++;
 	if (!(lem_in->rooms = ft_realloc(lem_in->rooms, sizeof(t_room) * (i + 1),
 		sizeof(t_room) * (i + 2))))
-		throw_error();
+		throw_error("MALLOC ERROR");
 	len = ft_strchr(line, ' ') - line;
 	lem_in->rooms[i].name = ft_strsub(line, 0, len);
 	lem_in->rooms[i + 1].name = NULL;

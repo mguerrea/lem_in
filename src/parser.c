@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 12:05:28 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/08 13:54:38 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/19 12:40:30 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		get_infos(t_lem_in *lem_in)
 	t_list *tmp;
 
 	if (!get_ant_number(lem_in))
-		return (0);
+		throw_error("NO ANTS IN THE ANTHILL");
 	if (!(lem_in->rooms = malloc(sizeof(t_room) * 1)))
 		return (0);
 	lem_in->rooms[0].name = NULL;
