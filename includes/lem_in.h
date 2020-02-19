@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 11:30:37 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/19 12:48:44 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/19 13:12:02 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ typedef struct	s_node
 typedef struct	s_room
 {
 	char	*name;
-	int		x;
-	int		y;
 	int		ant;
 	int		dist;
 	t_node	*adjs;
@@ -40,14 +38,6 @@ typedef struct	s_lem_in
 	t_list	*input;
 	t_room	*rooms;
 }				t_lem_in;
-
-typedef struct	s_dfs
-{
-	int max_depth;
-	int number;
-	int **paths_found;
-	int *path;
-}				t_dfs;
 
 void			bfs(t_lem_in lem_in);
 void			print_ant(int ant, char *room);
@@ -94,5 +84,7 @@ void			tab_cpy(int *dest, int *src);
 int				tab_len(int *tab);
 void			display_anthill(t_lem_in *lem_in);
 void			throw_error(char *str);
+void			free_lem_in(t_lem_in *lem_in);
+void			free_paths(int **paths);
 
 #endif

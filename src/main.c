@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 14:12:07 by mguerrea          #+#    #+#             */
-/*   Updated: 2020/02/19 12:45:20 by mguerrea         ###   ########.fr       */
+/*   Updated: 2020/02/19 13:15:03 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,6 @@ int		main(void)
 	paths = maximize_flux(paths, lem_in);
 	display_anthill(&lem_in);
 	send_ants(&lem_in, paths);
+	free_lem_in(&lem_in);
+	free_paths(paths);
 }
